@@ -1,6 +1,6 @@
 [build]
-builder = "dockerfile"
+builder = "nixpacks"
 
 [deploy]
-restartPolicyType = "no"
-restartPolicyMaxRetries = 0
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 1
