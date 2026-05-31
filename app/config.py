@@ -12,8 +12,8 @@ class Settings(BaseSettings):
     ml_client_secret: Optional[str] = None
     ml_refresh_token: Optional[str] = None
     ml_affiliate_tag: Optional[str] = None
-    ml_site_id: str = "MLM"
-    ml_search_query: str = "electrónica ofertas"
+    ml_site_id: Optional[str] = None
+    ml_search_query: Optional[str] = None
     x_api_key: Optional[str] = None
     x_api_secret: Optional[str] = None
     x_access_token: Optional[str] = None
