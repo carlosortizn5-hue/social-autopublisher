@@ -1,4 +1,3 @@
-import hashlib
 from typing import List
 from app.scrapers.base import ScrapedProduct
 from app.models import Product
@@ -6,12 +5,10 @@ from sqlalchemy.orm import Session
 
 
 def normalize_products(raw_products: List[ScrapedProduct], db: Session) -> List[Product]:
-    """Convert scraped products to DB models with dedup by link hash"""
+    """Convert scraped products to DB models with dedup by unique link constraint"""
     normalized = []
 
     for raw in raw_products:
-        link_hash = hashlib.md5(raw.link.encode()).hexdigest()
-
         existing = db.query(Product).filter_by(link=raw.link).first()
         if existing:
             continue  # Skip if already in DB

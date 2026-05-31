@@ -14,7 +14,7 @@ class PublishState:
 class Product(Base):
     __tablename__ = "products"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     title = Column(String(500), nullable=False)
     price = Column(Float, nullable=True)
     link = Column(String(2000), nullable=False, unique=True)
@@ -29,7 +29,7 @@ class Product(Base):
 class PostLog(Base):
     __tablename__ = "post_log"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     product_id = Column(Integer, nullable=False, index=True)
     platform = Column(String(50), nullable=False)
     status = Column(String(50), nullable=False)
@@ -40,7 +40,7 @@ class PostLog(Base):
 class PlatformToken(Base):
     __tablename__ = "platform_tokens"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     platform = Column(String(50), unique=True, nullable=False)
     token = Column(String(2000), nullable=False)
     refresh_token = Column(String(2000), nullable=True)

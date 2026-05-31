@@ -30,7 +30,7 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('link')
     )
-    op.create_index(op.f('ix_products_id'), 'products', ['id'], unique=False)
+    op.create_index('ix_products_state', 'products', ['state'])
 
     op.create_table('post_log',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -41,8 +41,7 @@ def upgrade() -> None:
     sa.Column('published_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_post_log_id'), 'post_log', ['id'], unique=False)
-    op.create_index(op.f('ix_post_log_product_id'), 'post_log', ['product_id'], unique=False)
+    op.create_index('ix_post_log_product_id', 'post_log', ['product_id'])
 
     op.create_table('platform_tokens',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -54,14 +53,11 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('platform')
     )
-    op.create_index(op.f('ix_platform_tokens_id'), 'platform_tokens', ['id'], unique=False)
 
 
 def downgrade() -> None:
-    op.drop_index(op.f('ix_platform_tokens_id'), table_name='platform_tokens')
     op.drop_table('platform_tokens')
-    op.drop_index(op.f('ix_post_log_product_id'), table_name='post_log')
-    op.drop_index(op.f('ix_post_log_id'), table_name='post_log')
+    op.drop_index('ix_post_log_product_id', table_name='post_log')
     op.drop_table('post_log')
-    op.drop_index(op.f('ix_products_id'), table_name='products')
+    op.drop_index('ix_products_state', table_name='products')
     op.drop_table('products')
