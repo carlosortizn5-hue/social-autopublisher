@@ -1,0 +1,6 @@
+[build]
+cmd = "alembic upgrade head && python -m pip install -r requirements.txt"
+
+[start]
+runImage = "python:3.11-slim"
+cmd = "python -m app.run_pipeline"
