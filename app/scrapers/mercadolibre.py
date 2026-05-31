@@ -19,6 +19,18 @@ class MercadoLibreScraper(Scraper):
             logger.warning("Mercado Libre credentials not configured")
             return []
 
+        required_config = {
+            "ML_SITE_ID": settings.ml_site_id,
+            "ML_SEARCH_QUERY": settings.ml_search_query,
+        }
+        missing = [name for name, value in required_config.items() if not value]
+        if missing:
+            logger.error(
+                "Mercado Libre scraper aborted: missing required config: %s",
+                ", ".join(missing),
+            )
+            return []
+
         try:
             async with httpx.AsyncClient() as client:
                 access_token = await self._get_access_token(client)
