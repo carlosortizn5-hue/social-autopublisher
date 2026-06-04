@@ -9,7 +9,7 @@ import os
 os.environ.setdefault('DATABASE_URL', 'sqlite:///./social_autopublisher.db')
 from app.scrapers.mercadolibre import MercadoLibreScraper
 from app.publishers.twitter import TwitterPublisher
-from app.publishers.meta import FacebookPublisher
+from app.publishers.meta import FacebookPublisher, InstagramPublisher
 from app.processors.normalizer import normalize_products
 from app.processors.caption import generate_caption
 from app.utils.locks import acquire_lock, release_lock
@@ -41,6 +41,7 @@ async def run_pipeline():
         publishers = {
             "twitter": TwitterPublisher(),
             "facebook": FacebookPublisher(),
+            "instagram": InstagramPublisher(),
         }
         
         for product in pending_products:

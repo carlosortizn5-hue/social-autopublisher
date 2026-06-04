@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     meta_long_lived_token: Optional[str] = None
     ig_business_account_id: Optional[str] = None
     fb_page_id: Optional[str] = None
+    imgbb_api_key: Optional[str] = None
     class Config:
         env_file = '.env'
         case_sensitive = False
