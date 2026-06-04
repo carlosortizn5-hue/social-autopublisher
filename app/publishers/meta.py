@@ -1,6 +1,7 @@
 import asyncio
 import httpx
 import logging
+import time
 from app.publishers.base import Publisher
 from app.models import Product
 from app.config import settings
@@ -71,6 +72,9 @@ class InstagramPublisher(Publisher):
                 creation_id = container_resp.json().get("id")
                 if not creation_id:
                     return False, f"Instagram media container creation returned no id: {container_resp.text}"
+
+                # Wait for media to be ready
+                await asyncio.sleep(3)
 
                 # Step B: Publish the container
                 publish_url = f"{GRAPH_API_BASE}/{settings.ig_business_account_id}/media_publish"
