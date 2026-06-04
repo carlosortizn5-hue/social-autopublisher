@@ -125,11 +125,9 @@ class MercadoLibreScraper(Scraper):
                 "price": f"{_PRICE_MIN}-*",
                 "sort": "relevance",
             }
-            headers = {"Authorization": f"Bearer {access_token}"}
             response = await client.get(
                 f"{self.BASE_URL}/sites/{settings.ml_site_id}/search",
                 params=params,
-                headers=headers,
                 timeout=15.0,
             )
             response.raise_for_status()
